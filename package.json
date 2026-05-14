@@ -1,0 +1,25 @@
+{
+  "name": "captcha-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "homepage": "https://github.com/ParthL001/Captcha-Generator#readme",
+  "bugs": {
+    "url": "https://github.com/ParthL001/Captcha-Generator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ParthL001/Captcha-Generator.git"
+  },
+  "license": "ISC",
+  "author": "Parth Lokhande",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "svg-captcha": "^1.4.0"
+  },
+  "devDependencies": {}
+}
