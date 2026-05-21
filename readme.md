@@ -46,7 +46,7 @@ Captcha-generator/
 Clone the repository:
 
 ```bash
-git clone https://github.com/ParthL001/Captcha-generator.git
+git clone https://github.com/ParthL001/Captcha-Generator.git
 ```
 
 Move into the project directory:
