@@ -19,6 +19,5 @@
   },
   "dependencies": {
     "svg-captcha": "^1.4.0"
-  },
-  "devDependencies": {}
+  }
 }

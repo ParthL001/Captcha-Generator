@@ -1,17 +1,19 @@
-# CAPTCHA Generator
+# CAPTCHA Verification System
 
-A simple Node.js based CAPTCHA Generator that creates custom SVG CAPTCHA images from user-entered text using JavaScript and SVG.
+A Node.js based CAPTCHA Verification System built using the `svg-captcha` npm package.  
+This project generates CAPTCHA SVG images dynamically and verifies user-entered CAPTCHA text through the command line interface.
 
 ---
 
 ## 📌 Features
 
-- Generate CAPTCHA from custom user input
-- Creates SVG CAPTCHA image
-- Command Line Interface (CLI)
+- Generate CAPTCHA dynamically
+- SVG-based CAPTCHA generation
+- CAPTCHA verification system
+- CLI-based interaction
+- Random CAPTCHA generation using `svg-captcha`
+- User input handling using `readline`
 - Lightweight and beginner-friendly
-- Built using Node.js
-- Easy to customize
 
 ---
 
@@ -19,7 +21,9 @@ A simple Node.js based CAPTCHA Generator that creates custom SVG CAPTCHA images 
 
 - JavaScript
 - Node.js
-- SVG
+- svg-captcha
+- fs module
+- readline module
 
 ---
 
@@ -28,9 +32,10 @@ A simple Node.js based CAPTCHA Generator that creates custom SVG CAPTCHA images 
 ```txt
 Captcha-generator/
 │
-├── index.mjs
-├── package.json
+├── index.js
 ├── captcha.svg
+├── package.json
+├── package-lock.json
 └── README.md
 ```
 
@@ -41,7 +46,7 @@ Captcha-generator/
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/Captcha-generator.git
+git clone https://github.com/ParthL001/Captcha-generator.git
 ```
 
 Move into the project directory:
@@ -58,61 +63,92 @@ npm install
 
 ---
 
+## 📦 Dependencies
+
+Install `svg-captcha` using:
+
+```bash
+npm install svg-captcha
+```
+
+---
+
 ## ▶️ Run the Project
 
 Run the program using:
 
 ```bash
-node index.mjs
+node index.js
 ```
 
 ---
 
-## 🖥️ Example
+## 🖥️ How It Works
+
+1. User enters text
+2. CAPTCHA SVG image is generated
+3. CAPTCHA image is saved as `captcha.svg`
+4. User opens the CAPTCHA image
+5. User enters CAPTCHA text in terminal
+6. Program verifies the CAPTCHA
+7. Displays success or failure message
+
+---
+
+## 🧪 Example
 
 ```txt
-Enter CAPTCHA text: HELLO123
+Enter text to generate CAPTCHA: HELLO
+
 CAPTCHA generated successfully!
-Saved as captcha.svg
+Open captcha.svg to view it.
+
+Enter CAPTCHA text: HELLO
+
+✅ CAPTCHA Verified Successfully!
 ```
 
 ---
 
 ## 📸 Output
 
-The generated CAPTCHA will be saved as:
+Generated Files:
 
-```txt
-captcha.svg
-```
-
-Open the SVG file in any browser to view the CAPTCHA image.
-
----
-
-## 🧠 How It Works
-
-1. User enters text through terminal
-2. Node.js reads the input
-3. SVG CAPTCHA is generated dynamically
-4. CAPTCHA image is saved as an SVG file
-
----
-
-## 📦 Dependencies
-
-- Node.js
-- readline
-- fs
+- `captcha.svg` → Generated CAPTCHA image
 
 ---
 
 ## 📚 Learning Outcomes
 
-This project helps in understanding:
+This project helped in understanding:
 
-- Node.js basics
-- File handling with fs
-- User input using readline
-- SVG generation
-- CLI application development
+- Node.js fundamentals
+- ES Modules (`import/export`)
+- Working with npm packages
+- File handling using `fs`
+- User input using `readline`
+- CAPTCHA generation and verification
+- SVG image creation
+
+---
+
+## ✨ Future Improvements
+
+- Add random distortion effects
+- Add noise lines and dots
+- Create web-based version
+- Add CAPTCHA expiration timer
+- Add multiple verification attempts
+- Convert SVG to PNG
+
+---
+
+## 👨‍💻 Author
+
+PARTH LOKHANDE
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.

@@ -1,25 +1,44 @@
-import svgCaptcha from 'svg-captcha';
-import fs from 'fs';
-import readline from 'readline';
+import svgCaptcha from "svg-captcha";
+import fs from "fs";
+import readline from "readline";
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-rl.question("Enter CAPTCHA text: ", (userText) => {
+// Take input from user
+rl.question("Enter text to generate CAPTCHA: ", (originalText) => {
 
+    // Generate CAPTCHA
     const captcha = svgCaptcha.create({
-        size: userText.length,
+        size: originalText.length,
         noise: 3,
         color: true,
-        text: userText
+        background: "#000",
+        charPreset: originalText
     });
 
+    // Save CAPTCHA image
     fs.writeFileSync("captcha.svg", captcha.data);
 
-    console.log("CAPTCHA generated successfully!");
-    console.log("Saved as captcha.svg");
+    console.log("\nCAPTCHA generated successfully!");
+    console.log("Open captcha.svg to view it.\n");
 
-    rl.close();
+    // Ask user to enter CAPTCHA
+    rl.question("Enter CAPTCHA text: ", (userInput) => {
+
+        if (userInput.trim() === captcha.text.trim()) {
+
+            console.log("\n✅ CAPTCHA Verified Successfully!");
+            console.log(`CAPTCHA Text: ${captcha.text}`);
+
+        } else {
+
+            console.log("\n❌ Incorrect CAPTCHA!");
+            console.log(`Correct CAPTCHA was: ${captcha.text}`);
+        }
+
+        rl.close();
+    });
 });
