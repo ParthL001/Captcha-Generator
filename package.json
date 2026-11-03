@@ -13,11 +13,16 @@
   },
   "license": "ISC",
   "author": "Parth Lokhande",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test-endpoints.js",
+    "cli": "node index.js"
   },
   "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "svg-captcha": "^1.4.0"
   }
 }

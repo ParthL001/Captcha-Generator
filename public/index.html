@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaptchaShield | Modern Dynamic CAPTCHA Verification System</title>
+    <meta name="description" content="Production-ready, highly customizable SVG CAPTCHA generator and verification service with REST API, math expressions, anti-replay security, and live demo.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Top Banner & Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Captcha<span class="gradient-text">Shield</span></span>
+                    <span class="brand-sub">Verification Engine</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#playground" class="nav-link active" data-tab="playground">Playground</a>
+                <a href="#form-demo" class="nav-link" data-tab="form-demo">Form Demo</a>
+                <a href="#api-docs" class="nav-link" data-tab="api-docs">API Docs</a>
+                <a href="#deployment" class="nav-link" data-tab="deployment">Deployment</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="server-status" id="serverStatusBadge" title="Server Connection Status">
+                    <span class="status-dot"></span>
+                    <span class="status-label">API Online</span>
+                </div>
+                <a href="https://github.com/ParthL001/Captcha-Generator" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline github-link">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="pulse-icon">✨</span>
+                <span>Next-Gen SVG CAPTCHA Engine & REST API</span>
+            </div>
+            <h1 class="hero-title">
+                Secure Your Applications Against Bots With <span class="gradient-text">Dynamic CAPTCHAs</span>
+            </h1>
+            <p class="hero-description">
+                Generate high-resolution vector CAPTCHAs on-the-fly. Protect your forms, prevent spam, support math challenges, and verify solutions in milliseconds with complete anti-replay protection.
+            </p>
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-num">0 ms</div>
+                    <div class="metric-label">Client Font Overhead</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">5 Modes</div>
+                    <div class="metric-label">Alpha, Numeric, Math & More</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">100%</div>
+                    <div class="metric-label">Server-Side Verified</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">SVG</div>
+                    <div class="metric-label">Lossless Vector Graphics</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 1: Interactive Playground -->
+        <section id="playground" class="tab-panel active">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Interactive CAPTCHA Studio</h2>
+                    <p class="section-subtitle">Test real-time generation, customize visual distortion, and test verification.</p>
+                </div>
+                <div class="header-actions">
+                    <button id="btnQuickRegen" class="btn btn-secondary">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                        </svg>
+                        <span>Refresh CAPTCHA</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="playground-grid">
+                <!-- Left Column: Live CAPTCHA Box & Verification Form -->
+                <div class="card captcha-display-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <h3 class="card-title">Live CAPTCHA Challenge</h3>
+                            <span class="badge" id="captchaTypeBadge">Alphanumeric</span>
+                        </div>
+                        <div class="captcha-timer" id="timerContainer" title="Session validity countdown">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span id="timerText">05:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Countdown Progress Bar -->
+                    <div class="timer-bar-wrapper">
+                        <div class="timer-bar" id="timerProgressBar"></div>
+                    </div>
+
+                    <!-- CAPTCHA Container -->
+                    <div class="captcha-box-wrapper">
+                        <div class="captcha-svg-container" id="captchaContainer">
+                            <div class="captcha-skeleton">
+                                <div class="spinner"></div>
+                                <span>Generating CAPTCHA...</span>
+                            </div>
+                        </div>
+
+                        <!-- On-Image Tooling Overlay -->
+                        <div class="captcha-tools-overlay">
+                            <button class="tool-btn" id="btnAudioHint" title="Read CAPTCHA Aloud (Spoken Accessibility)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="btnReload" title="Reload new CAPTCHA">
+                                <svg id="reloadIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="btnCopySvg" title="Copy raw SVG code">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="btnDownloadSvg" title="Download SVG image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- User Answer Input & Verification Form -->
+                    <form id="verifyForm" class="verification-form">
+                        <div class="form-group">
+                            <label for="captchaInput" class="form-label">
+                                <span>Enter CAPTCHA Answer</span>
+                                <span class="hint" id="caseHint">Case-insensitive</span>
+                            </label>
+                            <div class="input-action-group">
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                    <input 
+                                        type="text" 
+                                        id="captchaInput" 
+                                        class="text-input" 
+                                        placeholder="Type the characters or math result..." 
+                                        autocomplete="off" 
+                                        required 
+                                        maxlength="15"
+                                    />
+                                    <button type="button" class="btn-clear" id="btnClearInput" title="Clear input">×</button>
+                                </div>
+                                <button type="submit" id="btnVerify" class="btn btn-primary">
+                                    <span>Verify</span>
+                                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Box -->
+                        <div id="feedbackBanner" class="feedback-banner hidden" role="alert">
+                            <div class="feedback-icon" id="feedbackIcon"></div>
+                            <div class="feedback-content">
+                                <div class="feedback-title" id="feedbackTitle">Verified Successfully</div>
+                                <div class="feedback-msg" id="feedbackMsg">The response matched the server challenge.</div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Developer Live Session Inspector -->
+                    <div class="dev-inspector-wrapper">
+                        <button class="dev-inspector-toggle" id="btnToggleDev">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                            <span>Developer Session Inspector</span>
+                            <span class="chevron-icon" id="inspectorChevron">▼</span>
+                        </button>
+                        <div class="dev-inspector-content hidden" id="devInspectorBody">
+                            <div class="debug-row">
+                                <span class="debug-label">Session ID:</span>
+                                <span class="debug-val" id="debugSessionId">-</span>
+                            </div>
+                            <div class="debug-row">
+                                <span class="debug-label">Generated Text (Server Side):</span>
+                                <span class="debug-val text-mono" id="debugSolution">-</span>
+                            </div>
+                            <div class="debug-row">
+                                <span class="debug-label">Expires At:</span>
+                                <span class="debug-val" id="debugExpires">-</span>
+                            </div>
+                            <div class="debug-row">
+                                <span class="debug-label">Protection:</span>
+                                <span class="debug-val text-success">Single-Use (Anti-Replay) & Rate-Limited</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Customization Studio Controls -->
+                <div class="card controls-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Customization & Rules</h3>
+                        <button class="btn btn-xs btn-outline" id="btnResetSettings">Reset Defaults</button>
+                    </div>
+
+                    <div class="controls-body">
+                        <!-- Mode Selector Tabs -->
+                        <div class="control-group">
+                            <label class="control-label">CAPTCHA Type / Challenge</label>
+                            <div class="type-pill-grid">
+                                <button type="button" class="type-pill active" data-type="alphanumeric">
+                                    <span class="pill-title">Alphanumeric</span>
+                                    <span class="pill-desc">Letters & digits</span>
+                                </button>
+                                <button type="button" class="type-pill" data-type="numeric">
+                                    <span class="pill-title">Numeric</span>
+                                    <span class="pill-desc">0-9 digits only</span>
+                                </button>
+                                <button type="button" class="type-pill" data-type="alphabet">
+                                    <span class="pill-title">Alphabet</span>
+                                    <span class="pill-desc">A-Z only</span>
+                                </button>
+                                <button type="button" class="type-pill" data-type="math">
+                                    <span class="pill-title">Math Puzzle</span>
+                                    <span class="pill-desc">e.g. 8 + 5 = ?</span>
+                                </button>
+                                <button type="button" class="type-pill" data-type="custom">
+                                    <span class="pill-title">Custom Text</span>
+                                    <span class="pill-desc">Your custom word</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Custom text input (conditional) -->
+                        <div class="control-group hidden" id="customTextGroup">
+                            <label for="customTextInput" class="control-label">Custom Word (Max 10 chars)</label>
+                            <input type="text" id="customTextInput" class="text-input" placeholder="e.g. SECURE" maxlength="10">
+                        </div>
+
+                        <!-- Length Slider -->
+                        <div class="control-group" id="lengthGroup">
+                            <div class="slider-header">
+                                <label for="sliderSize" class="control-label">Character Length</label>
+                                <span class="slider-val" id="valSize">5 chars</span>
+                            </div>
+                            <input type="range" id="sliderSize" min="3" max="8" value="5" class="range-slider">
+                            <div class="slider-ticks">
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5 (Rec)</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                            </div>
+                        </div>
+
+                        <!-- Noise Level Slider -->
+                        <div class="control-group">
+                            <div class="slider-header">
+                                <label for="sliderNoise" class="control-label">Distortion Noise Lines</label>
+                                <span class="slider-val" id="valNoise">3 lines</span>
+                            </div>
+                            <input type="range" id="sliderNoise" min="0" max="8" value="3" class="range-slider">
+                            <div class="slider-ticks">
+                                <span>0 (Clean)</span>
+                                <span>2</span>
+                                <span>4</span>
+                                <span>6</span>
+                                <span>8 (Hard)</span>
+                            </div>
+                        </div>
+
+                        <!-- Background Color Selection -->
+                        <div class="control-group">
+                            <label class="control-label">Background Style</label>
+                            <div class="bg-palette-row">
+                                <button type="button" class="bg-swatch active" data-bg="#f8fafc" style="background: #f8fafc;" title="Soft White"></button>
+                                <button type="button" class="bg-swatch" data-bg="#ffffff" style="background: #ffffff;" title="Pure White"></button>
+                                <button type="button" class="bg-swatch" data-bg="#e2e8f0" style="background: #e2e8f0;" title="Slate Gray"></button>
+                                <button type="button" class="bg-swatch" data-bg="#fef3c7" style="background: #fef3c7;" title="Warm Amber"></button>
+                                <button type="button" class="bg-swatch" data-bg="#dcfce7" style="background: #dcfce7;" title="Mint Green"></button>
+                                <button type="button" class="bg-swatch" data-bg="#1e293b" style="background: #1e293b;" title="Dark Navy"></button>
+                            </div>
+                        </div>
+
+                        <!-- Toggles: Multi-color & Case Sensitive -->
+                        <div class="toggles-grid">
+                            <label class="toggle-card">
+                                <input type="checkbox" id="checkColor" checked>
+                                <span class="toggle-slider"></span>
+                                <div class="toggle-text">
+                                    <span class="toggle-title">Multi-Color Text</span>
+                                    <span class="toggle-subtitle">Random character colors</span>
+                                </div>
+                            </label>
+
+                            <label class="toggle-card">
+                                <input type="checkbox" id="checkCaseSensitive">
+                                <span class="toggle-slider"></span>
+                                <div class="toggle-text">
+                                    <span class="toggle-title">Case Sensitive</span>
+                                    <span class="toggle-subtitle">Require exact capitalization</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <button type="button" id="btnApplySettings" class="btn btn-primary btn-block">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                            <span>Apply & Generate New CAPTCHA</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Real-World Protected Form Demo -->
+        <section id="form-demo" class="tab-panel">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">End-to-End Form Integration Demo</h2>
+                    <p class="section-subtitle">Experience how a real contact or login form enforces CAPTCHA validation before processing requests.</p>
+                </div>
+            </div>
+
+            <div class="form-demo-wrapper">
+                <div class="card form-demo-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" class="text-primary">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                            <h3 class="card-title">Protected Inquiries Form</h3>
+                        </div>
+                        <span class="badge badge-success">Bot-Protected Endpoint</span>
+                    </div>
+
+                    <form id="contactDemoForm" class="contact-demo-form">
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label for="demoName" class="form-label">Full Name</label>
+                                <input type="text" id="demoName" class="text-input" placeholder="e.g. John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="demoEmail" class="form-label">Email Address</label>
+                                <input type="email" id="demoEmail" class="text-input" placeholder="e.g. john@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demoSubject" class="form-label">Subject</label>
+                            <input type="text" id="demoSubject" class="text-input" placeholder="Partnership inquiry, project quote..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demoMessage" class="form-label">Message</label>
+                            <textarea id="demoMessage" class="text-input text-area" rows="4" placeholder="Write your message here..." required></textarea>
+                        </div>
+
+                        <!-- Embedded CAPTCHA Widget inside the form -->
+                        <div class="form-captcha-block">
+                            <div class="form-captcha-header">
+                                <span class="form-captcha-label">Security Verification</span>
+                                <span class="form-captcha-sub">Prove you are human before submitting</span>
+                            </div>
+                            
+                            <div class="form-captcha-box">
+                                <div class="form-captcha-render" id="formDemoCaptchaContainer">
+                                    <div class="spinner"></div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-secondary" id="btnReloadFormCaptcha" title="Get new CAPTCHA">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                                    </svg>
+                                    <span>Change</span>
+                                </button>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 0.75rem;">
+                                <input type="text" id="formDemoCaptchaInput" class="text-input" placeholder="Enter CAPTCHA text shown above" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div id="demoFormFeedback" class="feedback-banner hidden"></div>
+
+                        <button type="submit" id="btnSubmitDemoForm" class="btn btn-primary btn-block btn-lg">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                            <span>Send Verified Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: API Documentation & Integration -->
+        <section id="api-docs" class="tab-panel">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Developer REST API & Integration</h2>
+                    <p class="section-subtitle">Simple, standard HTTP endpoints to embed CAPTCHA into any web app, mobile app, or backend.</p>
+                </div>
+            </div>
+
+            <div class="api-docs-grid">
+                <!-- Endpoint 1: Generate -->
+                <div class="card api-card">
+                    <div class="api-endpoint-badge">
+                        <span class="http-method post">POST</span>
+                        <code class="http-path">/api/captcha/generate</code>
+                    </div>
+                    <p class="api-desc">Generates a dynamic SVG CAPTCHA challenge and registers a single-use session token.</p>
+                    
+                    <h4 class="api-subheading">Request Body (JSON - Optional)</h4>
+                    <div class="code-block-container">
+<pre><code>{
+  "type": "alphanumeric", // "alphanumeric" | "numeric" | "alphabet" | "math" | "custom"
+  "size": 5,              // Length (3 to 8)
+  "noise": 3,             // Distortion lines (0 to 10)
+  "color": true,          // Multi-color characters
+  "background": "#f8fafc",// Background color
+  "ttl": 300              // Validity in seconds (default: 300)
+}</code></pre>
+                    </div>
+
+                    <h4 class="api-subheading">Response (200 OK)</h4>
+                    <div class="code-block-container">
+<pre><code>{
+  "success": true,
+  "id": "7a8f192b-3c4d-4e5f-a6b7-8c9d0e1f2a3b",
+  "svg": "&lt;svg xmlns='http://www.w3.org/2000/svg'...&lt;/svg&gt;",
+  "type": "alphanumeric",
+  "expiresIn": 300,
+  "expiresAt": "2026-11-03T18:00:00.000Z"
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Endpoint 2: Verify -->
+                <div class="card api-card">
+                    <div class="api-endpoint-badge">
+                        <span class="http-method post">POST</span>
+                        <code class="http-path">/api/captcha/verify</code>
+                    </div>
+                    <p class="api-desc">Verifies the user solution against the session ID. Consumes session immediately on success.</p>
+                    
+                    <h4 class="api-subheading">Request Body (JSON - Required)</h4>
+                    <div class="code-block-container">
+<pre><code>{
+  "id": "7a8f192b-3c4d-4e5f-a6b7-8c9d0e1f2a3b",
+  "answer": "8kX2p",
+  "caseSensitive": false
+}</code></pre>
+                    </div>
+
+                    <h4 class="api-subheading">Response (200 OK / 400 Bad Request)</h4>
+                    <div class="code-block-container">
+<pre><code>{
+  "success": true,
+  "message": "CAPTCHA verified successfully!",
+  "verifiedAt": "2026-11-03T17:45:00.000Z"
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ready-to-use Code Snippets -->
+            <div class="card snippets-card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h3 class="card-title">Integration Code Snippets</h3>
+                        <span class="badge">Copy-Paste Ready</span>
+                    </div>
+                    <div class="snippet-lang-tabs">
+                        <button type="button" class="lang-tab active" data-lang="js">JavaScript (Fetch)</button>
+                        <button type="button" class="lang-tab" data-lang="curl">cURL</button>
+                        <button type="button" class="lang-tab" data-lang="python">Python</button>
+                    </div>
+                </div>
+
+                <!-- JS Snippet -->
+                <div class="snippet-content active" id="snippet-js">
+                    <button class="btn-copy-code" data-target="code-js">Copy Code</button>
+<pre><code id="code-js">// 1. Generate CAPTCHA
+const genRes = await fetch('/api/captcha/generate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ type: 'alphanumeric', size: 5, noise: 3 })
+});
+const { id, svg } = await genRes.json();
+
+// Render SVG in your HTML container
+document.getElementById('captchaContainer').innerHTML = svg;
+
+// 2. Verify User Input
+const verifyRes = await fetch('/api/captcha/verify', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    id: id,
+    answer: document.getElementById('userCaptchaInput').value,
+    caseSensitive: false
+  })
+});
+const result = await verifyRes.json();
+if (result.success) {
+  alert('Verified! Proceeding with form submission...');
+} else {
+  alert(result.message);
+}</code></pre>
+                </div>
+
+                <!-- cURL Snippet -->
+                <div class="snippet-content" id="snippet-curl">
+                    <button class="btn-copy-code" data-target="code-curl">Copy Code</button>
+<pre><code id="code-curl"># 1. Generate CAPTCHA
+curl -X POST http://localhost:3000/api/captcha/generate \
+  -H "Content-Type: application/json" \
+  -d '{"type":"alphanumeric", "size":5, "noise":3}'
+
+# 2. Verify Answer
+curl -X POST http://localhost:3000/api/captcha/verify \
+  -H "Content-Type: application/json" \
+  -d '{"id":"YOUR_CAPTCHA_ID", "answer":"SOLVED_TEXT"}'</code></pre>
+                </div>
+
+                <!-- Python Snippet -->
+                <div class="snippet-content" id="snippet-python">
+                    <button class="btn-copy-code" data-target="code-python">Copy Code</button>
+<pre><code id="code-python">import requests
+
+BASE_URL = "http://localhost:3000"
+
+# 1. Generate CAPTCHA
+response = requests.post(f"{BASE_URL}/api/captcha/generate", json={
+    "type": "math",
+    "noise": 2
+})
+captcha_data = response.json()
+captcha_id = captcha_data["id"]
+svg_image = captcha_data["svg"]
+
+print(f"Generated CAPTCHA ID: {captcha_id}")
+
+# 2. Verify answer entered by user
+user_answer = input("Enter CAPTCHA answer: ")
+verify_res = requests.post(f"{BASE_URL}/api/captcha/verify", json={
+    "id": captcha_id,
+    "answer": user_answer
+})
+print("Result:", verify_res.json())</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: 1-Click Deployment Guide -->
+        <section id="deployment" class="tab-panel">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Deploy & Go Live (Free in Minutes)</h2>
+                    <p class="section-subtitle">This project is fully self-contained. The Express server serves both the REST API and the frontend UI.</p>
+                </div>
+            </div>
+
+            <div class="deployment-grid">
+                <!-- Option 1: Render -->
+                <div class="card deploy-card">
+                    <div class="deploy-card-header">
+                        <div class="deploy-icon render-icon">R</div>
+                        <div>
+                            <h3 class="card-title">Deploy on Render (Recommended)</h3>
+                            <span class="deploy-tag">100% Free Web Service</span>
+                        </div>
+                    </div>
+                    <p class="deploy-desc">Render automatically detects Node.js and starts your web server with zero configuration.</p>
+                    <ol class="deploy-steps">
+                        <li>Push this code to your GitHub repository:
+                            <code>git push origin main</code>
+                        </li>
+                        <li>Log in to <a href="https://render.com" target="_blank" rel="noopener noreferrer">Render.com</a> and click <strong>New +</strong> → <strong>Web Service</strong>.</li>
+                        <li>Select your <code>Captcha-Generator</code> repository.</li>
+                        <li>Settings are auto-filled from <code>package.json</code>:
+                            <div class="deploy-field-row">
+                                <span>Build Command:</span> <code>npm install</code>
+                            </div>
+                            <div class="deploy-field-row">
+                                <span>Start Command:</span> <code>npm start</code>
+                            </div>
+                        </li>
+                        <li>Click <strong>Create Web Service</strong>. In under 2 minutes, your live URL is active!</li>
+                    </ol>
+                </div>
+
+                <!-- Option 2: Railway -->
+                <div class="card deploy-card">
+                    <div class="deploy-card-header">
+                        <div class="deploy-icon railway-icon">🚂</div>
+                        <div>
+                            <h3 class="card-title">Deploy on Railway</h3>
+                            <span class="deploy-tag">Instant Git Sync</span>
+                        </div>
+                    </div>
+                    <p class="deploy-desc">Railway provides instant continuous deployment from GitHub branches with custom domain support.</p>
+                    <ol class="deploy-steps">
+                        <li>Go to <a href="https://railway.app" target="_blank" rel="noopener noreferrer">Railway.app</a>.</li>
+                        <li>Click <strong>New Project</strong> → <strong>Deploy from GitHub repo</strong>.</li>
+                        <li>Select this repository. Railway reads the included <code>Procfile</code> and boots the server automatically.</li>
+                        <li>Under service Settings → <strong>Generate Domain</strong> to get a public URL.</li>
+                    </ol>
+                </div>
+
+                <!-- Option 3: Local / VPS -->
+                <div class="card deploy-card">
+                    <div class="deploy-card-header">
+                        <div class="deploy-icon vps-icon">⚡</div>
+                        <div>
+                            <h3 class="card-title">Run Locally or on VPS</h3>
+                            <span class="deploy-tag">Self-Hosted</span>
+                        </div>
+                    </div>
+                    <p class="deploy-desc">Run on any server, VM, or local environment with Node.js.</p>
+                    <div class="code-block-container" style="margin-top: 1rem;">
+<pre><code># 1. Install dependencies
+npm install
+
+# 2. Start the production server
+npm start
+
+# Server is live at: http://localhost:3000</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="brand-text">
+                    <span class="brand-title">Captcha<span class="gradient-text">Shield</span></span>
+                </div>
+                <p class="footer-desc">A modern, open-source CAPTCHA generation & verification platform by Parth Lokhande.</p>
+            </div>
+            <div class="footer-right">
+                <a href="https://github.com/ParthL001/Captcha-Generator" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Repository</a>
+                <span class="footer-separator">•</span>
+                <span class="footer-link">MIT License</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
+
