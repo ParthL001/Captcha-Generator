@@ -83,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ====================================================
     // Initialization
     // ====================================================
-    initTabs();
+    initViewSwitcher();
+    initApiDocsDrawer();
     initControls();
     initCodeSnippets();
     checkServerHealth();
@@ -91,27 +92,63 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFormDemoCaptcha();
 
     // ====================================================
-    // Tab Navigation
+    // Primary Home View Switcher (Playground vs Form Demo)
     // ====================================================
-    function initTabs() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const panels = document.querySelectorAll('.tab-panel');
+    function initViewSwitcher() {
+        const switchBtns = document.querySelectorAll('.view-switch-btn');
+        const playgroundView = document.getElementById('view-playground');
+        const formDemoView = document.getElementById('view-form-demo');
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const targetTab = link.getAttribute('data-tab');
-                if (!targetTab) return;
+        switchBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const view = btn.getAttribute('data-view');
+                switchBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-                e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('active'));
-                panels.forEach(p => p.classList.remove('active'));
-
-                link.classList.add('active');
-                const targetPanel = document.getElementById(targetTab);
-                if (targetPanel) {
-                    targetPanel.classList.add('active');
+                if (view === 'playground') {
+                    playgroundView.classList.remove('hidden');
+                    formDemoView.classList.add('hidden');
+                } else {
+                    playgroundView.classList.add('hidden');
+                    formDemoView.classList.remove('hidden');
                 }
             });
+        });
+    }
+
+    // ====================================================
+    // API Docs Slide-Over Drawer (Tucked in the corner)
+    // ====================================================
+    function initApiDocsDrawer() {
+        const btnOpenApiDocs = document.getElementById('btnOpenApiDocs');
+        const btnFooterApiDocs = document.getElementById('btnFooterApiDocs');
+        const btnCloseApiDocs = document.getElementById('btnCloseApiDocs');
+        const apiDocsDrawer = document.getElementById('apiDocsDrawer');
+        const apiDocsBackdrop = document.getElementById('apiDocsBackdrop');
+
+        function openDrawer() {
+            apiDocsDrawer.classList.add('open');
+            apiDocsBackdrop.classList.remove('hidden');
+            apiDocsDrawer.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            apiDocsDrawer.classList.remove('open');
+            apiDocsBackdrop.classList.add('hidden');
+            apiDocsDrawer.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        if (btnOpenApiDocs) btnOpenApiDocs.addEventListener('click', openDrawer);
+        if (btnFooterApiDocs) btnFooterApiDocs.addEventListener('click', openDrawer);
+        if (btnCloseApiDocs) btnCloseApiDocs.addEventListener('click', closeDrawer);
+        if (apiDocsBackdrop) apiDocsBackdrop.addEventListener('click', closeDrawer);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && apiDocsDrawer.classList.contains('open')) {
+                closeDrawer();
+            }
         });
     }
 
@@ -593,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ====================================================
-    // Code Snippets Tabs & Copy
+    // Code Snippets Tabs & Copy (Inside API Drawer)
     // ====================================================
     function initCodeSnippets() {
         const langTabs = document.querySelectorAll('.lang-tab');
@@ -643,7 +680,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 badge.style.display = 'flex';
             }
         } catch {
-            badge.innerHTML = `<span class="status-dot" style="background:#ef4444"></span><span>API Offline</span>`;
+            badge.innerHTML = `<span class="status-dot" style="background:#ef4444"></span><span>Offline</span>`;
         }
     }
 
@@ -670,4 +707,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3200);
     }
 });
-
